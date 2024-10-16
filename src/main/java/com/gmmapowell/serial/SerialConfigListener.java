@@ -27,6 +27,7 @@ public class SerialConfigListener implements ModuleConfigListener {
 
 	@Override
 	public void activate(ProcessorConfig proc) throws ConfigException {
+		proc.addScanner(PoetryFormatter.class);
 		this.handler.activate(proc);
 	}
 
