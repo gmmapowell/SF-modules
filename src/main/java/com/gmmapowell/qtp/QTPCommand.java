@@ -21,6 +21,14 @@ public class QTPCommand implements AtCommandHandler {
 	}
 
 	@Override
+	public boolean canContain(AtCommandHandler nested) {
+		if (nested instanceof QTPCommand)
+			return false;
+		
+		return true;
+	}
+	
+	@Override
 	public void invoke(AtCommand cmd) {
 		System.out.println("QTP command");
 		String title = cmd.arg("title");
@@ -41,6 +49,7 @@ public class QTPCommand implements AtCommandHandler {
 	@Override
 	public void onEnd(AtCommand cmd) {
 		state.ensurePara();
+		state.newSpan();
 		state.op(new ReleaseTogether());
 	}
 }

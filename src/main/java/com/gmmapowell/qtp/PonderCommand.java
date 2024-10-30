@@ -1,5 +1,7 @@
 package com.gmmapowell.qtp;
 
+import org.zinutils.exceptions.CantHappenException;
+
 import com.gmmapowell.script.modules.processors.doc.AtCommand;
 import com.gmmapowell.script.modules.processors.doc.AtCommandHandler;
 import com.gmmapowell.script.modules.processors.doc.ScannerAtState;
@@ -27,4 +29,9 @@ public class PonderCommand implements AtCommandHandler {
 		state.endPara();
 	}
 
+	@Override
+	public boolean canContain(AtCommandHandler nested) {
+//		return false;
+		throw new CantHappenException("can't be asked to contain anything");
+	}
 }
