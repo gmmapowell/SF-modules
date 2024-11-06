@@ -10,7 +10,9 @@ import com.gmmapowell.script.config.VarMap;
 import com.gmmapowell.script.config.reader.ModuleActivator;
 import com.gmmapowell.script.config.reader.ReadConfigState;
 import com.gmmapowell.script.modules.processors.doc.AmpCommandHandler;
+import com.gmmapowell.script.modules.processors.doc.AtCommandHandler;
 import com.gmmapowell.script.modules.processors.doc.ScannerAmpState;
+import com.gmmapowell.script.modules.processors.doc.ScannerAtState;
 
 public class EmailQuoter implements ModuleActivator {
 	private final EmailConfig cfg;
@@ -18,8 +20,12 @@ public class EmailQuoter implements ModuleActivator {
 	public EmailQuoter(ReadConfigState state, VarMap params) throws ConfigException {
 		try {
 			String threads = params.remove("threads");
+			if (threads == null)
+				throw new ConfigException("must specify threads for email quoter");
 			Region threadRegion = state.root.subregion(threads);
 			String snaps = params.remove("snaps");
+			if (snaps == null)
+				throw new ConfigException("must specify snaps for email quoter");
 			Place snapsPlace = state.root.place(snaps);
 			cfg = new EmailConfig(threadRegion, snapsPlace);
 		} catch (Exception ex) {
@@ -36,6 +42,7 @@ public class EmailQuoter implements ModuleActivator {
 			proc.addExtension(AmpCommandHandler.class, (ScannerAmpState q) -> new SnapCommand(cfg, q));
 			proc.addExtension(AmpCommandHandler.class, (ScannerAmpState q) -> new EmailThreadsCommand(cfg, q));
 			proc.addExtension(AmpCommandHandler.class, (ScannerAmpState q) -> new EmailsByDateCommand(cfg, q));
+			proc.addExtension(AtCommandHandler.class, (ScannerAtState q) -> new QuoteEmailCommand(q));
 //		} catch (ConfigException ex) {
 //			throw ex;
 		} catch (Exception ex) {
