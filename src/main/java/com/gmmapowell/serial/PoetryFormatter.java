@@ -20,7 +20,6 @@ public class PoetryFormatter implements ProcessingScanner {
 			return false;
 		
 		if (poem.active()) {
-			System.out.println("in-poem");
 			state.newPara();
 			state.newSpan();
 			int i=0;

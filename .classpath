@@ -13,5 +13,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Testing"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/pdfbox"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/FLAS"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

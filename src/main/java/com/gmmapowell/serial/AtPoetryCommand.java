@@ -21,7 +21,7 @@ public class AtPoetryCommand implements AtCommandHandler {
 
 	@Override
 	public void invoke(AtCommand cmd) {
-		System.out.println("is-poem");
+//		System.out.println("is-poem");
 		poem.enable();
 		sink.pushFormat("poetry");
 	}

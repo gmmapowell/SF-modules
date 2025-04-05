@@ -20,7 +20,8 @@ public class QuestionsToPonderCommand implements AtCommandHandler {
 	@Override
 	public void invoke(AtCommand cmd) {
 		System.out.println("QuestionsToPonder command");
-		state.newSection("main", "chapter");
+		state.ensureFlow("Questions to Ponder");
+		state.newSection("Questions to Ponder", "chapter");
 	}
 
 }
