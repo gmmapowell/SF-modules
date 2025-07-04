@@ -7,13 +7,12 @@ public class WOLState {
 	private WOLGlobal global;
 	private String currentWOL;
 	private boolean seenAtWOL;
-	private Integer hours;
+	private Float hours;
 	private List<String> currProjects = new ArrayList<>();
 	private List<String> achievements = new ArrayList<>();
 	private List<String> topics = new ArrayList<>();
 
 	public WOLState() {
-		System.out.println("wolstate");
 	}
 	
 	public void currentFile(WOLGlobal global, String name) {
@@ -21,7 +20,6 @@ public class WOLState {
 		this.currentWOL = name;
 		global.countFile();
 		reset();
-		System.out.println("wol name = " + name);
 	}
 
 	private void reset() {
@@ -45,14 +43,15 @@ public class WOLState {
 		this.seenAtWOL = true;
 	}
 
-	public void hoursThisWeek(int cnt) {
+	public void hoursThisWeek(float hrs) {
 		if (!seenAtWOL) {
 			throw new RuntimeException("cannot have content before @WorkOutLoud");
 		}
 		if (this.hours != null) {
 			throw new RuntimeException("multiple &totalhours in same file");
 		}
-		this.hours = cnt;
+		this.hours = hrs;
+		global.hours(hrs);
 	}
 
 	public void workedOn(String proj) {
@@ -87,7 +86,7 @@ public class WOLState {
 		System.out.println("for file " + this.currentWOL);
 		System.out.println("  hours " + this.hours);
 		for (String s : currProjects) {
-			System.out.println("  project " + s);
+			System.out.println("  worked on " + s);
 		}
 		for (String s : achievements) {
 			System.out.println("  achieved " + s);

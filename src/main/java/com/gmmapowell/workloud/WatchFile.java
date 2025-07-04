@@ -5,16 +5,13 @@ import com.gmmapowell.script.processor.configured.ConfiguredState;
 import com.gmmapowell.script.processor.configured.LifecycleObserver;
 
 public class WatchFile implements LifecycleObserver{
-	private ConfiguredState state;
 	private WOLGlobal global;
 
 	@Override
 	public void newPlace(ConfiguredState state, Place x) {
-		this.state = state;
 		global = state.global().requireState(WOLGlobal.class);
 		WOLState wols = state.require(WOLState.class);
 		String name = x.name().replace(".txt", "");
-		System.out.println("have " + name);
 		wols.currentFile(global, name);
 	}
 	

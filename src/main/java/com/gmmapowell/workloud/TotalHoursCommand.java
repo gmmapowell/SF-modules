@@ -19,8 +19,11 @@ public class TotalHoursCommand implements AmpCommandHandler{
 
 	@Override
 	public void invoke(AmpCommand cmd) {
-		System.out.println("total hours");
 		WOLState wols = state.require(WOLState.class);
-		wols.hoursThisWeek(10);
+		String arg = cmd.args.readArg();
+		Float f = Float.parseFloat(arg);
+		cmd.args.argsDone();
+		System.out.println("arg = " + arg);
+		wols.hoursThisWeek(f);
 	}
 }

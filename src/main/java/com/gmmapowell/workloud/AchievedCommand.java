@@ -19,8 +19,9 @@ public class AchievedCommand implements AmpCommandHandler{
 
 	@Override
 	public void invoke(AmpCommand cmd) {
-		System.out.println("achieved");
+		String arg = cmd.args.readArg();
+		cmd.args.argsDone();
 		WOLState wols = state.require(WOLState.class);
-		wols.haveAchieved("something");
+		wols.haveAchieved(arg);
 	}
 }

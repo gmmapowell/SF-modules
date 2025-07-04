@@ -19,8 +19,9 @@ public class BlogCommand implements AmpCommandHandler{
 
 	@Override
 	public void invoke(AmpCommand cmd) {
-		System.out.println("blog");
+		String arg = cmd.args.readArg();
+		cmd.args.argsDone();
 		WOLState wols = state.require(WOLState.class);
-		wols.bloggedAbout("a topic");
+		wols.bloggedAbout(arg);
 	}
 }

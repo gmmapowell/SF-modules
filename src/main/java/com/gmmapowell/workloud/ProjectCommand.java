@@ -19,8 +19,10 @@ public class ProjectCommand implements AmpCommandHandler{
 
 	@Override
 	public void invoke(AmpCommand cmd) {
-		System.out.println("worked on");
+		String arg = cmd.args.readArg();
+		cmd.args.argsDone();
+
 		WOLState wols = state.require(WOLState.class);
-		wols.workedOn("project");
+		wols.workedOn(arg);
 	}
 }
