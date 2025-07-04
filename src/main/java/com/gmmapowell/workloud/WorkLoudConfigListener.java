@@ -70,5 +70,6 @@ public class WorkLoudConfigListener implements ConfigListener {
 		this.config.extensions().bindExtensionPoint(AmpCommandHandler.class, TotalHoursCommand.class);
 		this.config.extensions().bindExtensionPoint(AmpCommandHandler.class, ProjectCommand.class);
 		this.config.extensions().bindExtensionPoint(AmpCommandHandler.class, AchievedCommand.class);
+		this.config.extensions().bindExtensionPoint(AmpCommandHandler.class, BlogCommand.class);
 	}
 }

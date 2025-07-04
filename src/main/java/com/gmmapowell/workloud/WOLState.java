@@ -2,21 +2,24 @@ package com.gmmapowell.workloud;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class WOLState {
-	private int totalFiles = 0;
+	private WOLGlobal global;
 	private String currentWOL;
 	private boolean seenAtWOL;
 	private Integer hours;
-	private Set<String> allProjects = new TreeSet<>();
 	private List<String> currProjects = new ArrayList<>();
 	private List<String> achievements = new ArrayList<>();
+	private List<String> topics = new ArrayList<>();
 
-	public void currentFile(String name) {
+	public WOLState() {
+		System.out.println("wolstate");
+	}
+	
+	public void currentFile(WOLGlobal global, String name) {
+		this.global = global;
 		this.currentWOL = name;
-		this.totalFiles++;
+		global.countFile();
 		reset();
 		System.out.println("wol name = " + name);
 	}
@@ -25,6 +28,14 @@ public class WOLState {
 		this.seenAtWOL = false;
 		this.hours = null;
 		this.currProjects.clear();
+		this.achievements.clear();
+		this.topics.clear();
+	}
+
+	public void randomContent(String s) {
+		if (!seenAtWOL) {
+			throw new RuntimeException("cannot have content before @WorkOutLoud");
+		}
 	}
 
 	public void seenAtCmd() {
@@ -35,6 +46,9 @@ public class WOLState {
 	}
 
 	public void hoursThisWeek(int cnt) {
+		if (!seenAtWOL) {
+			throw new RuntimeException("cannot have content before @WorkOutLoud");
+		}
 		if (this.hours != null) {
 			throw new RuntimeException("multiple &totalhours in same file");
 		}
@@ -42,12 +56,25 @@ public class WOLState {
 	}
 
 	public void workedOn(String proj) {
-		allProjects.add(proj);
+		if (!seenAtWOL) {
+			throw new RuntimeException("cannot have content before @WorkOutLoud");
+		}
+		global.workedOn(proj);
 		currProjects.add(proj);
 	}
 
 	public void haveAchieved(String proj) {
+		if (!seenAtWOL) {
+			throw new RuntimeException("cannot have content before @WorkOutLoud");
+		}
 		achievements.add(proj);
+	}
+
+	public void bloggedAbout(String topic) {
+		if (!seenAtWOL) {
+			throw new RuntimeException("cannot have content before @WorkOutLoud");
+		}
+		topics.add(topic);
 	}
 
 	public void summarizeFile() {
@@ -65,14 +92,8 @@ public class WOLState {
 		for (String s : achievements) {
 			System.out.println("  achieved " + s);
 		}
-	}
-
-	public void summarize() {
-		System.out.println("Summary:");
-		System.out.println("  processed " + totalFiles + " files");
-		System.out.println("  projects:");
-		for (String s : allProjects) {
-			System.out.println("    " + s);
+		for (String s : topics) {
+			System.out.println("  blogged about " + s);
 		}
 	}
 }
