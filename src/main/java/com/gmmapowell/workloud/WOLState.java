@@ -3,9 +3,12 @@ package com.gmmapowell.workloud;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gmmapowell.script.flow.NonBreakingSpace;
+import com.gmmapowell.script.processor.configured.ConfiguredState;
+
 public class WOLState {
 	private WOLGlobal global;
-	private String currentWOL;
+	private String wolName;
 	private boolean seenAtWOL;
 	private Float hours;
 	private List<String> currProjects = new ArrayList<>();
@@ -15,10 +18,10 @@ public class WOLState {
 	public WOLState() {
 	}
 	
-	public void currentFile(WOLGlobal global, String name) {
+	public void currentFile(ConfiguredState state, WOLGlobal global, String name) {
 		this.global = global;
-		this.currentWOL = name;
-		global.countFile();
+		this.wolName = name;
+		global.countFile(state);
 		reset();
 	}
 
@@ -78,12 +81,12 @@ public class WOLState {
 
 	public void summarizeFile() {
 		if (!seenAtWOL) {
-			throw new RuntimeException("no @WorkOutLoud for " + this.currentWOL);
+			throw new RuntimeException("no @WorkOutLoud for " + this.wolName);
 		}
 		if (hours == null) {
-			throw new RuntimeException("no &totalhours for " + this.currentWOL);
+			throw new RuntimeException("no &totalhours for " + this.wolName);
 		}
-		System.out.println("for file " + this.currentWOL);
+		System.out.println("for file " + this.wolName);
 		System.out.println("  hours " + this.hours);
 		for (String s : currProjects) {
 			System.out.println("  worked on " + s);
@@ -93,6 +96,34 @@ public class WOLState {
 		}
 		for (String s : topics) {
 			System.out.println("  blogged about " + s);
+		}
+	}
+
+	public void outputHTML(ConfiguredState state) {
+		state.newSection("wol", "work-out-loud");
+		state.newPara("as-div");
+		state.newSpan("div-workoutloud", "div-title");
+		global.ensureSaveAs(state, "workoutloud");
+		state.text(wolName);
+		state.newSpan("div-workoutloud", "div-hours");
+		state.text(this.hours + " hours");
+		for (String s : currProjects) {
+			state.newSpan("div-workoutloud", "div-worked-on");
+			state.text(s);
+			state.newSpan("div-workoutloud");
+			state.op(new NonBreakingSpace());
+		}
+		for (String s : achievements) {
+			state.newSpan("div-workoutloud", "div-achieved");
+			state.text(s);
+			state.newSpan("div-workoutloud");
+			state.op(new NonBreakingSpace());
+		}
+		for (String s : topics) {
+			state.newSpan("div-workoutloud", "div-blogged-about");
+			state.text(s);
+			state.newSpan("div-workoutloud");
+			state.op(new NonBreakingSpace());
 		}
 	}
 }

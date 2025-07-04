@@ -12,13 +12,14 @@ public class WatchFile implements LifecycleObserver{
 		global = state.global().requireState(WOLGlobal.class);
 		WOLState wols = state.require(WOLState.class);
 		String name = x.name().replace(".txt", "");
-		wols.currentFile(global, name);
+		wols.currentFile(state, global, name);
 	}
 	
 	@Override
 	public void placeDone(ConfiguredState state) {
 		WOLState wols = state.require(WOLState.class);
 		wols.summarizeFile();
+		wols.outputHTML(state);
 	}
 	
 	@Override
