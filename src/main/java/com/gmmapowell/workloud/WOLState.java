@@ -3,7 +3,7 @@ package com.gmmapowell.workloud;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gmmapowell.script.flow.NonBreakingSpace;
+import com.gmmapowell.script.flow.NothingOp;
 import com.gmmapowell.script.processor.configured.ConfiguredState;
 
 public class WOLState {
@@ -108,22 +108,22 @@ public class WOLState {
 		state.newSpan("div-workoutloud", "div-hours");
 		state.text(this.hours + " hours");
 		for (String s : currProjects) {
-			state.newSpan("div-workoutloud", "div-worked-on");
+			state.newSpan("div-workoutloud", "div-workedOn");
 			state.text(s);
 			state.newSpan("div-workoutloud");
-			state.op(new NonBreakingSpace());
+			state.op(new NothingOp());
 		}
 		for (String s : achievements) {
 			state.newSpan("div-workoutloud", "div-achieved");
 			state.text(s);
 			state.newSpan("div-workoutloud");
-			state.op(new NonBreakingSpace());
+			state.op(new NothingOp());
 		}
 		for (String s : topics) {
-			state.newSpan("div-workoutloud", "div-blogged-about");
+			state.newSpan("div-workoutloud", "div-bloggedAbout");
 			state.text(s);
 			state.newSpan("div-workoutloud");
-			state.op(new NonBreakingSpace());
+			state.op(new NothingOp());
 		}
 	}
 }
