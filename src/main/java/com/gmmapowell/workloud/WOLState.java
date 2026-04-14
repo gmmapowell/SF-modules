@@ -35,7 +35,7 @@ public class WOLState {
 
 	public void randomContent(String s) {
 		if (!seenAtWOL) {
-			throw new RuntimeException("cannot have content before @WorkOutLoud");
+			throw new RuntimeException("cannot have content before @WorkOutLoud in " + wolName);
 		}
 	}
 
