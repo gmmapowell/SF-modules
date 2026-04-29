@@ -87,7 +87,7 @@ public class WOLState {
 			throw new RuntimeException("no &totalhours for " + this.wolName);
 		}
 		System.out.println("for file " + this.wolName);
-		System.out.println("  hours " + this.hours);
+		System.out.println("  hours " + Math.round(this.hours*4)/4.0);
 		for (String s : currProjects) {
 			System.out.println("  worked on " + s);
 		}

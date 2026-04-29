@@ -33,7 +33,7 @@ public class WOLGlobal {
 	public void summarize() {
 		System.out.println("Summary:");
 		System.out.println("  processed " + totalFiles + " files");
-		System.out.println("  hours " + (totalHours/totalFiles) + " per week");
+		System.out.println("  hours " + Math.round(4*totalHours/totalFiles)/4.0 + " per week");
 		System.out.println("  projects:");
 		for (String s : allProjects) {
 			System.out.println("    " + s);
