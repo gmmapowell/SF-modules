@@ -20,14 +20,22 @@ public class PoetryFormatter implements ProcessingScanner {
 			return false;
 		
 		if (poem.active()) {
-			state.newPara();
-			state.newSpan();
-			int i=0;
-			for (i=0;i<4;i++) {
-				state.op(new NonBreakingSpace());
+			boolean processLine = true;
+			if (s.trim().length() == 0) {
+				processLine = !poem.seenBlank();
+			} else {
+				poem.seenNonBlank();
 			}
-			state.processText(s);
-			state.endPara();
+			if (processLine) {
+				state.newPara();
+				state.newSpan();
+				int i=0;
+				for (i=0;i<4;i++) {
+					state.op(new NonBreakingSpace());
+				}
+				state.processText(s);
+				state.endPara();
+			}
 			return true; // we processed the line
 		} else {
 			return false;
