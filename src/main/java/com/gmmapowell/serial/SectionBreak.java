@@ -31,6 +31,7 @@ public class SectionBreak implements SpanItem, EPubAware, Break {
 	public void handle(XHTMLCollector coll) {
 		XML xml = XML.create("1.0", "hr");
 		coll.insert(xml.top());
+		coll.noPara();
 	}
 
 	@Override
