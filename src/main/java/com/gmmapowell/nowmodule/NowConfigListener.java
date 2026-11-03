@@ -7,7 +7,6 @@ import com.gmmapowell.script.config.VarMap;
 import com.gmmapowell.script.config.reader.ConfigListener;
 import com.gmmapowell.script.config.reader.ReadConfigState;
 import com.gmmapowell.script.elements.block.BlockishElementFactory;
-import com.gmmapowell.script.modules.processors.doc.AmpCommandHandler;
 import com.gmmapowell.script.modules.processors.doc.AmpSpotter;
 import com.gmmapowell.script.modules.processors.doc.AtBlankSpotter;
 import com.gmmapowell.script.modules.processors.doc.AtCommandHandler;

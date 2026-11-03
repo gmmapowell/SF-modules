@@ -8,6 +8,8 @@ import com.gmmapowell.script.processor.configured.ConfiguredState;
 
 public class NowCommand implements AtCommandHandler {
 	private ConfiguredState state;
+	private String date;
+	private String written;
 
 	public NowCommand(ScannerAtState sas) {
 		this.state = sas.state();
@@ -21,9 +23,10 @@ public class NowCommand implements AtCommandHandler {
 
 	@Override
 	public void invoke(AtCommand cmd) {
-		String date = cmd.arg("date");
+		date = cmd.arg("date");
 		if (date == null)
 			throw new RuntimeException("@Now without date");
+		written = cmd.arg("written");
 
 		String saveAs = "now/when-" + date;
 		state.ensureFlow(saveAs);
@@ -34,4 +37,10 @@ public class NowCommand implements AtCommandHandler {
 		state.endPara();
 	}
 
+	@Override
+	public void onEnd(AtCommand cmd) {
+		if (written != null) {
+			System.out.println("\nhello");
+		}
+	}
 }
