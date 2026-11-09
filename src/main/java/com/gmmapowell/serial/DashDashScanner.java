@@ -12,7 +12,7 @@ public class DashDashScanner implements ProcessingScanner {
 
 	@Override
 	public boolean handleLine(String s) {
-		if ("--".equals(s)) {
+		if ("--".equals(s) || "---".equals(s) || "----".equals(s)) {
 			state.newPara();
 			state.newSpan();
 			state.op(new SectionBreak());
